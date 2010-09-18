@@ -1,0 +1,12 @@
+camshot.pl script is used as daemon whose task is listening some TCP port for incoming connections.
+When connection is established, client receives JPEG image -- usually picture shot, taken from Web-camera. After that connection is closed immediately.
+
+Using:
+	start daemon:
+	
+	camshot.pl & 
+
+	terminate daemon:
+
+	killall camshot.pl
+

@@ -1,0 +1,40 @@
+#!/bin/sh
+if [ $# -ne 5 ]; then
+    exit 42
+fi
+DOCNAME=$(head -c 10 /dev/urandom | md5sum | cut -d' ' -f1)
+DOCPATH=/tmp/$DOCNAME
+USICPATH=/opt/usic/
+
+mkdir $DOCPATH # BUG!!
+cp $USICPATH/share/usicagreement/* $DOCPATH/
+cd $DOCPATH
+echo -n $1 > ID.tex
+echo -n "\\verb|$2|" > LOGIN.tex
+echo -n "$3 $4 $5" > FIO.tex
+echo -n "$(date +%d)"  > DAY.tex
+echo -n "$(date +%Y)" > YEAR.tex
+AMONTH["1"]="січня"
+AMONTH["2"]="лютого"
+AMONTH["3"]="березня"
+AMONTH["4"]="квітня"
+AMONTH["5"]="травня"
+AMONTH["6"]="червня"
+AMONTH["7"]="липня"
+AMONTH["8"]="серпня"
+AMONTH["9"]="вересня"
+AMONTH["10"]="жовтня"
+AMONTH["11"]="листопада"
+AMONTH["12"]="грудня"
+echo -n ${AMONTH[$(date +%m)]} > MONTH.tex
+$USICPATH/bin/usickey $2 > KEY.tex
+
+xelatex agreement.tex  > /dev/null 2>&1
+$USICPATH/bin/usicprint allow $(lp agreement.pdf | cut -d'-' -f2 | cut -d' ' -f1)
+#if [ $? -ne 0 ]; then 
+#    exit -1
+#fi
+cd /
+rm -fr /tmp/$DOCNAME
+#echo $JOBID
+#echo $JOBID_OUR

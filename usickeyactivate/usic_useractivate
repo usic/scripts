@@ -1,0 +1,4 @@
+#!/bin/sh
+# Activates one's account. STUB code
+
+echo -e "login=$1\nloginShell=/bin/bash" | /opt/usic/bin/usic_usermod

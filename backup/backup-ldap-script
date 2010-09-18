@@ -1,0 +1,42 @@
+#!/bin/bash
+
+OURREMOTEUSER="backuper"
+OURREMOTEHOST="cast.usic.org.ua"
+OURREMOTEDIR="~/backups/ldap"
+
+# Get hostname
+HOST="$(hostname)"
+
+XZ="$(which xz)"
+
+SLAPCAT=/usr/sbin/slapcat
+
+# Get date in dd-mm-yyyy format
+NOW="$(date +"%d-%m-%Y")"  
+
+# Backup Dest directory, change this if you have someother location
+DEST="/tmp/"                                                       
+
+# Main directory where backup will be stored
+MBD="$DEST/ldap"                           
+MES="$MBD/backup.log"   
+
+FILE="$MBD/$HOST.$NOW.lzma"
+
+ssh $OURREMOTEUSER@$OURREMOTEHOST "mkdir $OURREMOTEDIR/$NOW" > /dev/null 2>&1
+
+
+$SLAPCAT  | $XZ --format=lzma -9 > $FILE
+echo "$NOW. Backup successfully done." >> $MES
+echo -e "Backup file: $FILE\n" >> $MES
+
+scp $FILE $OURREMOTEUSER@$OURREMOTEHOST:$OURREMOTEDIR/$NOW/ > /dev/null 2>&1
+
+if [ $? == 0 ]; then
+    echo "Backup successfully copied to $OURREMOTEDIR" >> $MES
+# cleanup temp. folder    
+    rm -f $FILE
+else
+    echo "Failed to copy backup to $OURREMOTEDIR" >> $MES
+fi
+

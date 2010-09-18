@@ -1,0 +1,29 @@
+\documentclass[a4paper]{article}
+% \usepackage{misccorr}
+\usepackage{xunicode}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{xltxtra}
+\usepackage{fullpage}
+\usepackage[small,compact]{titlesec}
+\usepackage[utf8]{inputenc}
+ \renewcommand{\labelenumi}{\Alph{enumi}}
+\usepackage[ukrainian]{babel}
+\usepackage[pdftitle={Угода із користувачем},colorlinks=true]{hyperref}
+\setromanfont[Mapping=tex-text]{Linux Libertine}
+\def\thesection{\Roman{section}.}
+\renewcommand{\labelenumi}{\arabic{section}.\arabic{enumi}.}
+\renewcommand{\labelenumii}{\arabic{section}.\arabic{enumi}.\arabic{enumii}.}
+\title{Угода із користувачем}
+\begin{document}
+\addfontfeature{Numbers=OldStyle}
+\pagestyle{empty}
+\parskip=0 cm
+\begin{flushright}
+\small Код активації: \texttt{\input{KEY.tex}}
+\end{flushright}
+\input{template.tex}
+\pagebreak
+\vskip 4 mm
+\input{template.tex}
+\end{document}

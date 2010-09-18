@@ -1,0 +1,4 @@
+#!/bin/sh
+# Deactivates one's account. STUB code
+
+echo -e "login=$1\nloginShell=/sbin/nologin\n" | /opt/usic/bin/usic_usermod

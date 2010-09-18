@@ -1,0 +1,8 @@
+/var/www/newwiki/
+#/var/www/site/htdocs/*.*
+# needs writing a parsing code not to back up the directory recursively
+/var/www/ums
+/opt/usic
+/var/svn
+/etc
+
