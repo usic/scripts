@@ -23,6 +23,10 @@ MES="$MBD/backup.log"
 
 FILE="$MBD/$HOST.$NOW.lzma"
 
+if [ ! -d $MBD ]; then
+	mkdir -p $MBD
+fi
+
 ssh $OURREMOTEUSER@$OURREMOTEHOST "mkdir $OURREMOTEDIR/$NOW" > /dev/null 2>&1
 
 
